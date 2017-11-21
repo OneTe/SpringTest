@@ -1,5 +1,6 @@
 package com.migc.todo;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -9,6 +10,7 @@ import java.util.*;
  */
 @Service
 public class TodoService {
+    private static final Logger logger = LoggerFactory.getLogger(TodoService.class);
     private static List<Todo> todos = new ArrayList<Todo>();
     private static int todoCount = 3;
 
@@ -27,6 +29,21 @@ public class TodoService {
                 filteredTodos.add(todo);
         }
         return filteredTodos;
+    }
+
+    public Todo retrieveTodo(int id) {
+        for (Todo todo : todos) {
+            if (todo.getId() == id)
+                return todo;
+        }
+        return null;
+    }
+
+    public void updateTodo(Todo todo) {
+        todos.remove(todo);
+        todos.add(todo);
+        //logger.info("why some?");
+       // todos.add(new Todo(100,"in28Minutes","hahha",new Date(),false));
     }
 
     public void addTodo(String name, String desc, Date targetDate, boolean isDone) {
