@@ -33,7 +33,9 @@ public class TodoController {
 
     @RequestMapping(value = "/list-todos",method = RequestMethod.GET)
     public String listTodos( ModelMap model){
-        model.addAttribute("todos",service.retrieveTodos("in28Minutes"));
+        String user = (String) model.get("name");
+        logger.info("-----------------------" + user);
+        model.addAttribute("todos",service.retrieveTodos(user));
         return "list-todos";
     }
     @RequestMapping(value = "/add-todo",method = RequestMethod.GET)
@@ -63,11 +65,11 @@ public class TodoController {
                              BindingResult result) {
         if (result.hasErrors())
             return "todo";
-
         todo.setUser("in28Minutes");
-        //todo.setTargetData(new Date());
+       // todo.setTargetData(date);
+        //can't get targetDate,maybe encode?
         service.updateTodo(todo);
-        logger.info("---------" + todo.getDesc().toString());
+        //logger.info("---------" + todo.getTargetDate().toString());
         model.clear();// to prevent request parameter "name" to be passed
         return "redirect:list-todos";
     }
