@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by wangcheng  on 2017/11/16.
@@ -29,7 +30,7 @@ public class TodoController {
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(
+            binder.registerCustomEditor(Date.class, new CustomDateEditor(
                 dateFormat, false));
     }
 
@@ -78,10 +79,9 @@ public class TodoController {
         if (result.hasErrors())
             return "todo";
         todo.setUser("in28Minutes");
-       // todo.setTargetData(date);
-        //can't get targetDate,maybe encode?
+
         service.updateTodo(todo);
-        //logger.info("---------" + todo.getTargetDate().toString());
+        logger.info("---------" + todo.getTargetDate().toString());
         model.clear();// to prevent request parameter "name" to be passed
         return "redirect:list-todos";
     }

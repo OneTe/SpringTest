@@ -53,7 +53,7 @@ public class Todo {
         return targetDate;
     }
 
-    public void setTargetData(Date targetDate) {
+    public void setTargetDate(Date targetDate) {
         this.targetDate = targetDate;
     }
 
